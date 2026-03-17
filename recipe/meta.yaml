@@ -6,26 +6,26 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/napari-vesicles-segmentation-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/napari-vesicles-segmentation-{{ version }}.tar.gz
   sha256: 10f4144f86625cbda6c5a5b48d4cf13aac6c0274c01bab8bc5dc9efdcd72a08c
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
   script_env:
     - QT_QPA_PLATFORM=offscreen
 
 requirements:
   host:
     - pip
-    - python >=3.8
+    - python {{ python_min }}
     - setuptools-scm
   run:
     - magicgui
     - napari
     - numpy
-    - python >=3.8
+    - python >={{ python_min }}
     - qtpy
     - scikit-image
     - scipy
@@ -38,6 +38,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/alexisjapas/napari-vesicles-segmentation
